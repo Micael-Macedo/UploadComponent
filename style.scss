@@ -29,6 +29,14 @@ body {
         text-align: center;
         padding: 28px 0px 32px;
         position: relative;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover{
+            background: #EBE6FF;
+            i.ph{
+                font-size: 54px;
+            }
+        }
         input{
             all:unset;
             opacity: 0;
@@ -36,6 +44,7 @@ body {
             position: absolute;
         }
         i.ph{
+            transition: 0.3s;
             font-size: 48px;
             color:  #7C3AED;
         }
@@ -72,14 +81,22 @@ body {
             .icon{
                 background-color: var(--icon-bg);
                 border-radius: 4px;
-
+                width: 48px;
                 padding: 16px 12px;
 
                 display: flex;
                 align-items: center;
+ 
                 i{
                     font-size: 24px;
                     color: var(--icon-color);
+                }
+                &.uploaded{
+                    padding: 0;
+                    img{
+                        width: 100%;
+                        object-fit: cover;
+                    }
                 }
             }
             .info{

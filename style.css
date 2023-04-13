@@ -29,6 +29,14 @@ body {
   text-align: center;
   padding: 28px 0px 32px;
   position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+}
+#app .drag-files:hover {
+  background: #EBE6FF;
+}
+#app .drag-files:hover i.ph {
+  font-size: 54px;
 }
 #app .drag-files input {
   all: unset;
@@ -37,6 +45,7 @@ body {
   position: absolute;
 }
 #app .drag-files i.ph {
+  transition: 0.3s;
   font-size: 48px;
   color: #7C3AED;
 }
@@ -73,6 +82,7 @@ body {
 #app .files .box .icon {
   background-color: var(--icon-bg);
   border-radius: 4px;
+  width: 48px;
   padding: 16px 12px;
   display: flex;
   align-items: center;
@@ -80,6 +90,14 @@ body {
 #app .files .box .icon i {
   font-size: 24px;
   color: var(--icon-color);
+}
+#app .files .box .icon.uploaded {
+  padding: 0;
+}
+#app .files .box .icon.uploaded img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 #app .files .box .info {
   flex: 1;
