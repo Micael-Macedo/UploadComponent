@@ -24,48 +24,68 @@ file.addEventListener("change", () =>{
 
     }
 })
-function appendFile(file){
+function appendFile(file, source){
     $(".files").append(
-        `<div class="box uploading">
+        `<div class="box uploading newbox">
             <div class="icon">
                 <i class="ph-fill ph-file"></i>
+                <img src="${source}" title="${file.name}"/>
             </div>
             <div class="info">
                 <div class="filename">${file.name}</div>
                 <div class="filesize">
-                    <span class="currentPorcenter">0</span>
-                    <span> MB / </span>
+                    <span class="currentFilePorcent">0 MB / </span>
                     <span>${ Math.round(file.size/100) /1000} MB</span>
                 </div>
                 <div class="bar">
                     <progress value="0" max="100"></progress>
-                    <span>0%</span>
+                    <span class="currentPorcent">0%</span>
                 </div>
             </div>
             <div class="action">
-                <i class="ph ph-x"></i>
+                <i class="ph ph-x" onclick="deleteImage(this)"></i>
             </div>
         </div>`
     )
-    return file.size;
+    return Math.round(file.size/100) /1000;
 }
 function loadFile(file, source){
-    let size = appendFile(file);
-    uploadFile(size, $(".uploading").last(), source)
+    let size = appendFile(file, source);
+    uploadFile(size)
 
 }
-function uploadFile(fileSize, boxFile, source){
-    let porcent = 0
-    for (let index = 0; index < 10; index++) {        
-        setTimeout(() => {
-            porcent +=  fileSize/10
-        }, 1000);
-        console.log(porcent, index)
-    }
-    console.log(boxFile)
-   console.log($(boxFile).find("div.info"))
-    // $(icon).empty()
-    // $(icon).append(
-    //     `<img src="${source}" />`
-    // )
+function uploadFile(fileSize){
+    let porcent = 0;
+    let currentPorcent = 0;
+    let progress = $(".newbox progress");
+        var loading = setInterval(() => {
+            porcent += 1 + porcent;
+            currentPorcent = (fileSize / 100) * porcent;
+            if(porcent <= 100){
+                $(".newbox .currentFilePorcent").text(currentPorcent.toFixed(3) + " MB / ")
+                $(".newbox .currentPorcent").text(porcent+"%")
+                $(progress).val(porcent);
+            }else 
+            if(porcent > 100){
+                clearInterval(loading);
+                $(progress).val(100);
+                $(".newbox .currentFilePorcent").text(fileSize + " MB / ")
+                $(".newbox .currentPorcent").text(100+"%")
+                finalizarCarregamento()
+            }
+        }, 550)    
 } 
+function finalizarCarregamento(){
+    let icon = $(".newbox .icon");
+
+    $(".newbox").addClass("done");     
+    $(".newbox").removeClass("uploading"); 
+    $(".newbox").removeClass("newbox");     
+
+    $(icon).addClass("uploaded");     
+    
+}
+function deleteImage(box) {
+    console.log($(box).closest(".box"));
+    $(box).closest(".box").remove();
+}

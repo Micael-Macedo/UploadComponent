@@ -15,6 +15,7 @@ body {
 }
 
 #app {
+  margin-top: 15% !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -88,13 +89,21 @@ body {
   align-items: center;
 }
 #app .files .box .icon i {
+  display: block;
   font-size: 24px;
   color: var(--icon-color);
+}
+#app .files .box .icon img {
+  display: none;
 }
 #app .files .box .icon.uploaded {
   padding: 0;
 }
+#app .files .box .icon.uploaded i {
+  display: none;
+}
 #app .files .box .icon.uploaded img {
+  display: block;
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
